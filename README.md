@@ -1,11 +1,11 @@
 # toDo
 
 <h1 align="center">
-    <!-- <img src='./No_money.jpg'> -->
+    <img src='./toDo.png'>
 </h1>
 
 <h1 align="center">
-    <!-- <img src='./No_money-modal.jpg'> -->
+    <img src='./modal toDo.png'>
 </h1>
 
 ## About:
