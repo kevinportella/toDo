@@ -25,15 +25,7 @@ const NotesContext = createContext<NotesContextData>(
 );
 
 export function NotesProvider({ children }: NotesProviderProps) {
-  const [notes, setNotes] = useState<Note[]>(() => {
-    const storagedNote = localStorage.getItem('@Notes:task');
-
-    if (storagedNote) {
-      return JSON.parse(storagedNote);
-    }
-
-    return [];
-  });
+  const [notes, setNotes] = useState<Note[]>([]);
 
   useEffect(() => {
     api.get('notes')

@@ -1,21 +1,21 @@
-# nomoney
+# toDo
 
 <h1 align="center">
-    <img src='./No_money.jpg'>
+    <!-- <img src='./No_money.jpg'> -->
 </h1>
 
 <h1 align="center">
-    <img src='./No_money-modal.jpg'>
+    <!-- <img src='./No_money-modal.jpg'> -->
 </h1>
 
-## About: 
+## About:
 
-This is a complete web front-end financial application using important concepts and tools from the 
+This is a complete web front-end toDo application using important concepts and tools from the
 React ecosystem such as Styled Components, MirageJS, Context API, hooks, Axios and more.
 
 ## Technologies:
 
-This project was developed with the following technologies: 
+This project was developed with the following technologies:
 
 - [React](https://reactjs.org)
 - [Styled-components](https://styled-components.com)
@@ -26,16 +26,16 @@ This project was developed with the following technologies:
 Clone the project and access the folder.
 
 ```bash
-$ git clone https://github.com/kevinportella/nomoney
-$ cd nomoney
+$ git clone https://github.com/kevinportella/toDo
+$ cd toDo
 ```
 
-To start it, follow the steps below: 
+To start it, follow the steps below:
 ```bash
 # Install dependencies
 $ yarn
 
-# Start the project 
+# Start the project
 $ yarn start
 ```
 
