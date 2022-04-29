@@ -58,7 +58,7 @@ export function NewTaskModal({ isOpen, onRequestClose, setNoteId, noteId }: NewT
               placeholder='Edit note...'
             />
 
-            <ButtonSave>
+            <ButtonSave type="button">
 
               <span>Save</span>
 
