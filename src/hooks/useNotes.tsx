@@ -13,11 +13,11 @@ type NoteInput = Omit<Note, 'id' | 'createdAt'>;
 interface NotesProviderProps {
   children: ReactNode;
 }
-
 interface NotesContextData {
   notes: Note[];
   createNote: (note: NoteInput) => Promise<void>;
   removeNote: (id: number) => void;
+  toggleComplete: (id: number) => void;
 }
 
 const NotesContext = createContext<NotesContextData>(
@@ -63,17 +63,17 @@ export function NotesProvider({ children }: NotesProviderProps) {
 
   const toggleComplete = (id: number) => {
     const updateNote = [...notes]
-    const noteId = updateNote.map(note => {
+    const notesId = updateNote.map(note => {
       if (note.id === id) {
         note.completed = !note.completed
       }
       return note;
     })
-    setNotes(noteId);
+    setNotes(notesId);
   };
 
   return (
-    <NotesContext.Provider value={{ notes, createNote, removeNote }}>
+    <NotesContext.Provider value={{ notes, createNote, removeNote, toggleComplete }}>
       {children}
     </NotesContext.Provider>
   )

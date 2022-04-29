@@ -5,18 +5,21 @@ import {
   ButtonDelete, ButtonRedo,
   ButtonReverse, ButtonSave, ButtonUndo, Container, Checked, Input, Label, NoteTypeContainer
 } from './styles';
-
 interface NewTaskModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
+  setNoteId: (id: number | null) => void;
+  noteId: number | null;
 }
 
-export function NewTaskModal({ isOpen, onRequestClose }: NewTaskModalProps) {
-  const { notes, removeNote } = useNotes();
+export function NewTaskModal({ isOpen, onRequestClose, setNoteId, noteId }: NewTaskModalProps) {
+  const { notes, removeNote, toggleComplete } = useNotes();
 
   const handleRemoveNote = (id: number) => {
     removeNote(id);
   }
+
+  const note = notes.find(note => note.id === noteId);
 
   return (
     <Modal
@@ -27,17 +30,23 @@ export function NewTaskModal({ isOpen, onRequestClose }: NewTaskModalProps) {
     >
       <button
         type="button"
-        onClick={onRequestClose}
+        onClick={() => {
+          setNoteId(null)
+          onRequestClose()
+        }}
         className="react-modal-close"
       >
         <img src={closeImg} alt="Fechar" />
       </button>
 
-      {notes.map(note => (
+      {!!note && (
         <Container key={note.id}>
           <Label>
 
-            <Checked type="checkbox" />
+            <Checked type="checkbox"
+              onChange={() => toggleComplete(note.id)}
+              checked={note.completed}
+            />
 
             <h2>{note.title}</h2>
 
@@ -49,7 +58,7 @@ export function NewTaskModal({ isOpen, onRequestClose }: NewTaskModalProps) {
               placeholder='Edit note...'
             />
 
-            <ButtonSave type="submit">
+            <ButtonSave>
 
               <span>Save</span>
 
@@ -83,7 +92,10 @@ export function NewTaskModal({ isOpen, onRequestClose }: NewTaskModalProps) {
 
             <ButtonDelete
               type="submit"
-              onClick={() => handleRemoveNote(note.id)}
+              onClick={() => {
+                handleRemoveNote(note.id)
+                onRequestClose()
+              }}
             >
               Delete
             </ButtonDelete>
@@ -91,7 +103,7 @@ export function NewTaskModal({ isOpen, onRequestClose }: NewTaskModalProps) {
           </NoteTypeContainer>
 
         </Container>
-      ))}
+      )}
 
     </Modal>
   );

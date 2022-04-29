@@ -5,6 +5,7 @@ import { Container } from "./styles";
 
 export function Dashboard () {
   const [ isNewTaskModalOpen , setIsNewTaskModalOpen] = useState(false);
+  const [ noteId, setNoteId] = useState<null | number>(null);
 
   function handleOpenNewTaskModal() {
     setIsNewTaskModalOpen(true);
@@ -13,12 +14,15 @@ export function Dashboard () {
   function handleCloseNewTaskModal() {
     setIsNewTaskModalOpen(false);
   }
+
   return (
     <Container>
 
-      <NotesTable onOpenNewTaskModal={handleOpenNewTaskModal}/>
+      <NotesTable setNoteId={setNoteId} onOpenNewTaskModal={handleOpenNewTaskModal}/>
 
       <NewTaskModal
+        setNoteId={setNoteId}
+        noteId={noteId}
         isOpen={isNewTaskModalOpen}
         onRequestClose={handleCloseNewTaskModal}
       />

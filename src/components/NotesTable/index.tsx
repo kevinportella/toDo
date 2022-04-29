@@ -4,9 +4,10 @@ import { Button, ButtonDelete, Container, Options } from "./styles";
 
 interface NotesTableProps {
   onOpenNewTaskModal: () => void
+  setNoteId: (id: number) => void
 }
 
-export function NotesTable({ onOpenNewTaskModal }: NotesTableProps) {
+export function NotesTable({ onOpenNewTaskModal, setNoteId }: NotesTableProps) {
   const { notes, removeNote, } = useNotes();
 
   const handleRemoveNote = (id: number) => {
@@ -16,35 +17,31 @@ export function NotesTable({ onOpenNewTaskModal }: NotesTableProps) {
   return (
     <Container>
       <table>
-
         <thead>
-
           <tr>
 
-            <th>Title</th>
-
             <th>Status</th>
+
+            <th>Title</th>
 
             <th>Data</th>
 
             <th>Options</th>
 
           </tr>
-
         </thead>
 
         <tbody>
           {notes.map(note => (
             <tr key={note.id}>
 
-              <td>{note.title}</td>
-
               <td>
                 <input type="checkbox"
-                  // onChange={() => toggleComplete(note.id)}
                   checked={note.completed}
                 />
               </td>
+
+              <td>{note.title}</td>
 
               <td>
                 {new Intl.DateTimeFormat('pt-BR').format(
@@ -55,19 +52,21 @@ export function NotesTable({ onOpenNewTaskModal }: NotesTableProps) {
               <Options>
 
                 <Button
-                  onClick={onOpenNewTaskModal}
+                  onClick={() => {
+                    setNoteId(note.id)
+                    onOpenNewTaskModal()
+                  }}
                 >
                   Edit
                 </Button>
 
-                <ButtonDelete onClick ={() => handleRemoveNote(note.id)}>Delete</ButtonDelete>
+                <ButtonDelete onClick={() => handleRemoveNote(note.id)}>Delete</ButtonDelete>
 
               </Options>
 
             </tr>
           ))}
         </tbody>
-
       </table>
     </Container>
   )
