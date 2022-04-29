@@ -18,6 +18,7 @@ interface NotesContextData {
   createNote: (note: NoteInput) => Promise<void>;
   removeNote: (id: number) => void;
   toggleComplete: (id: number) => void;
+  editNote: (id: number, title: string) => void;
 }
 
 const NotesContext = createContext<NotesContextData>(
@@ -64,8 +65,19 @@ export function NotesProvider({ children }: NotesProviderProps) {
     setNotes(notesId);
   };
 
+  const editNote = (id: number, title: string) => {
+    const updateNote = [...notes]
+    const notesId = updateNote.map(note => {
+      if (note.id === id) {
+        note.title = title
+      }
+      return note;
+    })
+    setNotes(notesId);
+  }
+
   return (
-    <NotesContext.Provider value={{ notes, createNote, removeNote, toggleComplete }}>
+    <NotesContext.Provider value={{ notes, createNote, removeNote, toggleComplete, editNote }}>
       {children}
     </NotesContext.Provider>
   )

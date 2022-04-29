@@ -13,7 +13,7 @@ interface NewTaskModalProps {
 }
 
 export function NewTaskModal({ isOpen, onRequestClose, setNoteId, noteId }: NewTaskModalProps) {
-  const { notes, removeNote, toggleComplete } = useNotes();
+  const { notes, removeNote, toggleComplete, editNote } = useNotes();
 
   const handleRemoveNote = (id: number) => {
     removeNote(id);
@@ -56,9 +56,16 @@ export function NewTaskModal({ isOpen, onRequestClose, setNoteId, noteId }: NewT
 
             <Input
               placeholder='Edit note...'
+              value={note.title}
+              onChange={(e) => editNote(note.id, e.target.value)}
             />
 
-            <ButtonSave type="button">
+            <ButtonSave type="button"
+              onClick={() => {
+                editNote(note.id, note.title)
+                onRequestClose()
+              }}
+            >
 
               <span>Save</span>
 
